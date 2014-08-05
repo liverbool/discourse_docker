@@ -1,6 +1,6 @@
 env:
   # You can have redis on a different box
-  RAILS_ENV: 'production'
+  RAILS_ENV: 'development'
   UNICORN_WORKERS: 3
   UNICORN_SIDEKIQS: 1
   # slightly less aggressive than "recommendation" but works fine with oobgc
@@ -42,7 +42,7 @@ run:
         # postgres
         cd $home
         chown -R discourse:www-data /shared/log/rails
-        exec sudo -E -u discourse LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb
+        exec sudo -E -u discourse LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E development -c config/unicorn.conf.rb
 
   - file:
      path: /etc/service/nginx/run
@@ -68,14 +68,17 @@ run:
         - mkdir -p /shared/log/rails
         - mkdir -p /shared/uploads
         - mkdir -p /shared/backups
+        - mkdir -p /shared/plugins
         - touch tmp/.gitkeep
         - rm -r log
         - ln -s /shared/log/rails $home/log
         - ln -s /shared/uploads $home/public/uploads
         - ln -s /shared/backups $home/public/backups
+        - ln -s /shared/plugins $home/plugins
         - chown -R discourse:www-data /shared/log/rails
         - chown -R discourse:www-data /shared/uploads
         - chown -R discourse:www-data /shared/backups
+        - chown -R discourse:www-data /shared/plugins
 
   - exec:
       cmd:
@@ -116,16 +119,15 @@ run:
         # ensure we are on latest bundler
         - gem update bundler
         - chown -R discourse $home
-        - sudo -E -u discourse bundle install --deployment --verbose --without test --without development
-        - sudo -E -u discourse bundle exec rake db:migrate
-        - sudo -E -u discourse bundle exec rake assets:precompile
+        - sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
+        - sudo -E -u discourse bundle exec rake db:create db:migrate db:test:prepare db:seed_fu
 
   - file:
      path: /usr/local/bin/discourse
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec script/discourse "$@")
+       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
 
   - file:
      path: /usr/local/bin/rails
@@ -135,9 +137,9 @@ run:
        # If they requested a console, load pry instead
        if [ "$@" == "c" -o "$@" == "console" ]
        then
-        (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec pry -r ./config/environment)
+        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
        else
-        (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec script/rails "$@")
+        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
        fi
 
   - file:
@@ -145,7 +147,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec bin/rake "$@")
+       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
 
   - file:
      path: /etc/update-motd.d/10-web

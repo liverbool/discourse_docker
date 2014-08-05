@@ -13,7 +13,8 @@ config_file=containers/"$config".yml
 cidfile=cids/"$config".cid
 cidbootstrap=cids/"$config"_boostrap.cid
 local_discourse=local_discourse
-image=samsaffron/discourse:0.2.5
+#image=samsaffron/discourse:0.2.5
+image=liverbool/discourse-docker:latest
 docker_path=`which docker.io || which docker`
 
 docker_ip=`/sbin/ifconfig | \
@@ -73,7 +74,7 @@ prereqs() {
     exit 1
   fi
 
-  # 2. running aufs 
+  # 2. running aufs
   test=`$docker_path info 2> /dev/null | grep 'Driver: aufs'`
   if [[ "$test" =~ "aufs" ]] ; then : ; else
     echo "Your Docker installation is not using aufs, in the past we have had issues with it"

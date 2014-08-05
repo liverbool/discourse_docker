@@ -1,0 +1,158 @@
+env:
+  # You can have redis on a different box
+  RAILS_ENV: 'production'
+  UNICORN_WORKERS: 3
+  UNICORN_SIDEKIQS: 1
+  # slightly less aggressive than "recommendation" but works fine with oobgc
+  RUBY_GC_MALLOC_LIMIT: 40000000
+  # this ensures we have enough heap space to handle a big pile of small reqs
+  RUBY_HEAP_MIN_SLOTS: 800000
+
+  DISCOURSE_DB_SOCKET: /var/run/postgresql
+  DISCOURSE_DB_HOST:
+  DISCOURSE_DB_PORT:
+
+
+params:
+  # SSH key is required for remote access into the container
+  version: tests-passed
+
+  home: /var/www/discourse
+  upload_size: 3m
+
+run:
+  - file:
+     path: /etc/runit/1.d/copy-env
+     chmod: "+x"
+     contents: |
+        #!/bin/bash
+        env > ~/boot_env
+        conf=/var/www/discourse/config/discourse.conf
+
+        # find DISCOURSE_ env vars, strip the leader, lowercase the key
+        env | /usr/bin/awk -F= -vOFS== '$1 ~ /^DISCOURSE_/ {print substr(tolower($1),11),$2}' > $conf
+
+  - file:
+     path: /etc/service/unicorn/run
+     chmod: "+x"
+     contents: |
+        #!/bin/bash
+        exec 2>&1
+        # redis
+        # postgres
+        cd $home
+        chown -R discourse:www-data /shared/log/rails
+        exec sudo -E -u discourse LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E production -c config/unicorn.conf.rb
+
+  - file:
+     path: /etc/service/nginx/run
+     chmod: "+x"
+     contents: |
+        #!/bin/sh
+        exec 2>&1
+        mkdir -p /var/log/nginx
+        exec /usr/sbin/nginx
+
+  - exec:
+      cd: $home
+      hook: code
+      cmd:
+        - git reset --hard
+        - git clean -f
+        - git remote set-branches --add origin master
+        - git pull
+        - git fetch origin $version
+        - git checkout $version
+        - mkdir -p tmp/pids
+        - mkdir -p tmp/sockets
+        - mkdir -p /shared/log/rails
+        - mkdir -p /shared/uploads
+        - mkdir -p /shared/backups
+        - touch tmp/.gitkeep
+        - rm -r log
+        - ln -s /shared/log/rails $home/log
+        - ln -s /shared/uploads $home/public/uploads
+        - ln -s /shared/backups $home/public/backups
+        - chown -R discourse:www-data /shared/log/rails
+        - chown -R discourse:www-data /shared/uploads
+        - chown -R discourse:www-data /shared/backups
+
+  - exec:
+      cmd:
+        - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/discourse.conf"
+        - "rm /etc/nginx/sites-enabled/default"
+        - "mkdir -p /var/nginx/cache"
+
+  - replace:
+      filename: /etc/nginx/nginx.conf
+      from: pid /run/nginx.pid;
+      to: daemon off;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /upstream[^\}]+\}/m
+      to: "upstream discourse {
+        server 127.0.0.1:3000;
+      }"
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /server_name.+$/
+      to: server_name _ ;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /client_max_body_size.+$/
+      to: client_max_body_size $upload_size ;
+
+  - exec:
+      cmd: echo "done configuring web"
+      hook: web_config
+
+  - exec:
+      cd: $home
+      hook: web
+      cmd:
+        # ensure we are on latest bundler
+        - gem update bundler
+        - chown -R discourse $home
+        - sudo -E -u discourse bundle install --deployment --verbose --without test --without development
+        - sudo -E -u discourse bundle exec rake db:migrate
+        - sudo -E -u discourse bundle exec rake assets:precompile
+
+  - file:
+     path: /usr/local/bin/discourse
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec script/discourse "$@")
+
+  - file:
+     path: /usr/local/bin/rails
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       # If they requested a console, load pry instead
+       if [ "$@" == "c" -o "$@" == "console" ]
+       then
+        (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec pry -r ./config/environment)
+       else
+        (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec script/rails "$@")
+       fi
+
+  - file:
+     path: /usr/local/bin/rake
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       (cd /var/www/discourse && RAILS_ENV=production sudo -E -u discourse bundle exec bin/rake "$@")
+
+  - file:
+     path: /etc/update-motd.d/10-web
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       echo
+       echo Use: rails, rake or discourse to execute commands in production
+       echo
+

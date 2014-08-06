@@ -7,19 +7,18 @@
 
 ## this is the all-in-one, standalone Discourse Docker container template
 templates:
-  - "templates/cron.template.yml"
-  - "templates/syslog.template.yml"
-  - "templates/postgres.dev.template.yml"
-  - "templates/redis.template.yml"
-  - "templates/sshd.template.yml"
-  - "templates/web.dev.template.yml"
+  - "templates/dev.cron.template.yml"
+  - "templates/dev.syslog.template.yml"
+  - "templates/dev.postgres.template.yml"
+  - "templates/dev.redis.template.yml"
+  - "templates/dev.sshd.template.yml"
+  - "templates/dev.web.template.yml"
 
 ## which TCP/IP ports should this container expose?
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
-  - "30000:3000"
-  - "40000:4000"
+  - "30000:30000" # Bug port 3000 already started
 
 #params:
   ## Which Git revision should this container use? (default: tests-passed)
@@ -50,8 +49,8 @@ env:
 ## These containers are stateless, all data is stored in /shared
 volumes:
   - volume:
-      host: /var/docker/shared/standalone
-      guest: /shared
+      host: /var/docker/discourse
+      guest: /var/www/discourse
 
 ## The docker manager plugin allows you to one-click upgrade Discouse
 ## http://discourse.example.com/admin/docker

@@ -65,20 +65,8 @@ run:
         - git checkout $version
         - mkdir -p tmp/pids
         - mkdir -p tmp/sockets
-        - mkdir -p /shared/log/rails
-        - mkdir -p /shared/uploads
-        - mkdir -p /shared/backups
-        - mkdir -p /shared/plugins
         - touch tmp/.gitkeep
         - rm -r log
-        - ln -s /shared/log/rails $home/log
-        - ln -s /shared/uploads $home/public/uploads
-        - ln -s /shared/backups $home/public/backups
-        - ln -s /shared/plugins $home/plugins
-        - chown -R discourse:www-data /shared/log/rails
-        - chown -R discourse:www-data /shared/uploads
-        - chown -R discourse:www-data /shared/backups
-        - chown -R discourse:www-data /shared/plugins
 
   - exec:
       cmd:

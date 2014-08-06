@@ -115,7 +115,7 @@ run:
       cd: $home/config/environments
       hook: web
       cmd:
-        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/dev.env.rb
+        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
 
   - file:
      path: /usr/local/bin/discourse

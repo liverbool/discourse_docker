@@ -28,7 +28,6 @@ run:
   # temporary
   - exec: apt-get install -y socat
   - exec: mkdir -p /shared/postgres_run
-  - exec: ln -s /shared /var/www/discourse/shared
   - exec: chown postgres:postgres /shared/postgres_run
   - exec: chmod 775 /shared/postgres_run
   - exec: rm -fr /var/run/postgresql

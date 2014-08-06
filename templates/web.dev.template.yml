@@ -1,7 +1,7 @@
 env:
   # You can have redis on a different box
   RAILS_ENV: 'development'
-  UNICORN_WORKERS: 3
+  UNICORN_WORKERS: 2
   UNICORN_SIDEKIQS: 1
   # slightly less aggressive than "recommendation" but works fine with oobgc
   RUBY_GC_MALLOC_LIMIT: 40000000

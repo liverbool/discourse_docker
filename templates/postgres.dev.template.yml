@@ -169,5 +169,17 @@ run:
   - exec: /bin/bash -c 'sudo -u postgres psql discourse_development <<< "create extension if not exists pg_trgm;"'
 
   - exec:
+      stdin: |
+        create user root;
+      cmd: sudo -u postgres psql discourse_development
+      raise_on_fail: false
+
+  - exec:
+      stdin: |
+        grant all privileges on database discourse_development to root;
+      cmd: sudo -u postgres psql discourse_development
+      raise_on_fail: false
+
+  - exec:
       hook: postgres
       cmd: "echo postgres installed!"

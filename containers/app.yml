@@ -29,7 +29,7 @@ env:
   LANG: en_US.UTF-8
   ## How many concurrent web requests are supported?
   ## With 2GB we recommend 3-4 workers, with 1GB only 2
-  #UNICORN_WORKERS: 3
+  UNICORN_WORKERS: 2
   ##
   ## List of comma delimited emails that will be made admin and developer
   ## on initial signup example 'user1@example.com, user2@example.com'

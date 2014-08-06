@@ -112,7 +112,7 @@ run:
       cmd: echo "done configuring web"
       hook: web_config
 
-    - exec:
+  - exec:
       cd: $home
       hook: web
       cmd:

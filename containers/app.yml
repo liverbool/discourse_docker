@@ -18,6 +18,8 @@ templates:
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
+  - "30000:3000"
+  - "40000:4000"
 
 #params:
   ## Which Git revision should this container use? (default: tests-passed)

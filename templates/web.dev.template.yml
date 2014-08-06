@@ -113,9 +113,6 @@ run:
       hook: web_config
 
     - exec:
-      cmd: sudo usermod -a -G root discourse
-
-    - exec:
       cd: $home
       hook: web
       cmd:

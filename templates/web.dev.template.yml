@@ -118,9 +118,10 @@ run:
       cmd:
         # ensure we are on latest bundler
         - gem update bundler
+        - rm -rf .bundle
         - chown -R discourse $home
         - sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
-        - sudo -E -u discourse bundle exec rake db:create db:migrate db:test:prepare db:seed_fu
+        - sudo -E -u discourse bundle exec rake db:migrate db:seed_fu
 
   - file:
      path: /usr/local/bin/discourse

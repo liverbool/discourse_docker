@@ -66,7 +66,7 @@ run:
         - mkdir -p tmp/sockets
         - touch tmp/.gitkeep
         - rm -r log
-        - ln -s /shared/discourse /var/www/discourse
+        - ln -s /var/www/discourse /shared/discourse
 
   - exec:
       cmd:
@@ -101,6 +101,13 @@ run:
       hook: web_config
 
   - exec:
+      cd: $home/config/environments
+      hook: web
+      cmd:
+        - rm -rf development.rb
+        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
+
+  - exec:
       cd: $home
       hook: web
       cmd:
@@ -110,12 +117,6 @@ run:
         - chown -R discourse $home
         - sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
         - sudo -E -u discourse bundle exec rake db:migrate
-
-  - exec:
-      cd: $home/config/environments
-      hook: web
-      cmd:
-        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
 
   - file:
      path: /usr/local/bin/discourse

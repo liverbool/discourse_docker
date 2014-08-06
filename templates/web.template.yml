@@ -57,6 +57,7 @@ run:
       cd: $home
       hook: code
       cmd:
+        - ls -al
         - git reset --hard
         - git clean -f
         - git remote set-branches --add origin master

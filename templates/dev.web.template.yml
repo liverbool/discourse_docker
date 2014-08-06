@@ -41,7 +41,6 @@ run:
         # redis
         # postgres
         cd $home
-        chown -R discourse:www-data /shared/log/rails
         exec sudo -E -u discourse LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E development -c config/unicorn.conf.rb
 
   - file:

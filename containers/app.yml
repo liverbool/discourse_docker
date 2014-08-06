@@ -18,7 +18,7 @@ templates:
 expose:
   - "80:80"   # fwd host port 80   to container port 80 (http)
   - "2222:22" # fwd host port 2222 to container port 22 (ssh)
-  - "30000:30000" # Bug port 3000 already started
+  - "30000:30000" # fix for port 3000 already started in nginx upstream production
 
 #params:
   ## Which Git revision should this container use? (default: tests-passed)

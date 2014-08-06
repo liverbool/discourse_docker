@@ -50,7 +50,7 @@ env:
 volumes:
   - volume:
       host: /var/docker/discourse
-      guest: /var/www/discourse
+      guest: /shared
 
 ## The docker manager plugin allows you to one-click upgrade Discouse
 ## http://discourse.example.com/admin/docker

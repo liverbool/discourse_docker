@@ -71,8 +71,7 @@ run:
         - mkdir -p tmp/sockets
         - touch tmp/.gitkeep
         - rm -r log
-        - ln -s /shared/discourse /var/www/discourse
-        - chown -R discourse:www-data /shared/discourse
+        - ln -s /shared/discourse
 
   - exec:
       cmd:

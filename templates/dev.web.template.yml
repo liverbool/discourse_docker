@@ -58,6 +58,10 @@ run:
       Asia/Bangkok
 
   - exec:
+      cmd:
+        - "mkdir -p $home"
+
+  - exec:
       cd: $home
       hook: code
       cmd:

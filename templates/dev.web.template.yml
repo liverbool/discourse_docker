@@ -17,7 +17,7 @@ params:
   # SSH key is required for remote access into the container
   version: tests-passed
 
-  home: /var/www/discourse
+  home: /shared/discourse
   upload_size: 3m
 
 run:
@@ -27,7 +27,7 @@ run:
      contents: |
         #!/bin/bash
         env > ~/boot_env
-        conf=/var/www/discourse/config/discourse.conf
+        conf=/shared/discourse/config/discourse.conf
 
         # find DISCOURSE_ env vars, strip the leader, lowercase the key
         env | /usr/bin/awk -F= -vOFS== '$1 ~ /^DISCOURSE_/ {print substr(tolower($1),11),$2}' > $conf
@@ -71,7 +71,6 @@ run:
         - mkdir -p tmp/sockets
         - touch tmp/.gitkeep
         - rm -r log
-        - ln -s /var/www/discourse /shared/discourse
 
   - exec:
       cmd:
@@ -128,7 +127,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
+       (cd /shared/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
 
   - file:
      path: /usr/local/bin/rails
@@ -138,9 +137,9 @@ run:
        # If they requested a console, load pry instead
        if [ "$@" == "c" -o "$@" == "console" ]
        then
-        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
+        (cd /shared/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
        else
-        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
+        (cd /shared/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
        fi
 
   - file:
@@ -148,7 +147,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
+       (cd /shared/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
 
   - file:
      path: /etc/update-motd.d/10-web

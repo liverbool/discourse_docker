@@ -52,10 +52,10 @@ run:
         mkdir -p /var/log/nginx
         exec /usr/sbin/nginx
 
-  - file:
-    path: /etc/timezone
-    contents: |
-      Asia/Bangkok
+  #- file:
+  #  path: /etc/timezone
+  #  contents: |
+  #    Asia/Bangkok
 
   - exec:
       cmd:

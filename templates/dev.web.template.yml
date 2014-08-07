@@ -52,11 +52,11 @@ run:
         mkdir -p /var/log/nginx
         exec /usr/sbin/nginx
 
-  - file:
-    path: /etc/timezone
-    chmod: "+x" # TODO: change this
-    contents: |
-      Asia/Bangkok
+  #- file:
+  #  path: /etc/timezone
+  #  chmod: "+x" # TODO: change this
+  #  contents: |
+  #    Asia/Bangkok
 
   - exec:
       cd: $home

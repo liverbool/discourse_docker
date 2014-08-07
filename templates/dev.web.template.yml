@@ -81,6 +81,20 @@ run:
         - chown -R discourse:www-data /shared/backups
 
   - exec:
+      cd: $home/config/environments
+      hook: web
+      cmd:
+        - rm -rf development.rb
+        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
+
+  - exec:
+      cd: $home/config
+      hook: web
+      cmd:
+        - rm -rf nginx.sample.conf
+        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/nginx.sample.conf
+
+  - exec:
       cmd:
         - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/discourse.conf"
         - "rm /etc/nginx/sites-enabled/default"
@@ -111,13 +125,6 @@ run:
   - exec:
       cmd: echo "done configuring web"
       hook: web_config
-
-  - exec:
-      cd: $home/config/environments
-      hook: web
-      cmd:
-        - rm -rf development.rb
-        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
 
   - exec:
       cd: $home

@@ -1,1 +1,168 @@
-src/event/gesture/Drag.js","requires":[25.0],"uses":[],"idx":27.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/Swipe.js","requires":[25.0],"uses":[],"idx":28.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/EdgeSwipe.js","requires":[28.0],"uses":[0.0,1.0,52.0],"idx":29.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/LongPress.js","requires":[25.0],"uses":[],"idx":30.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/MultiTouch.js","requires":[24.0],"uses":[],"idx":31.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/Pinch.js","requires":[31.0],"uses":[],"idx":32.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/Rotate.js","requires":[31.0],"uses":[3.0],"idx":33.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/gesture/Tap.js","requires":[25.0],"uses":[],"idx":34.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/publisher/Publisher.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0],"uses":[],"idx":35.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Offset.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[2.0],"idx":36.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Region.js","requires":[14.0,15.0,16.0,17.0,22.0,36.0],"uses":[0.0,1.0,8.0],"idx":37.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Point.js","requires":[37.0],"uses":[0.0,1.0],"idx":38.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/Event.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0,38.0,41.0],"uses":[9.0],"idx":39.0},{"path":"../../ext-5.0.0-gpl/src/rtl/event/Event.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0,52.0],"idx":40.0},{"path":"../../ext-5.0.0-gpl/overrides/event/Event.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0],"uses":[9.0,85.0],"idx":41.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/ListenerStack.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[2.0],"idx":42.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/Controller.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0,7.0],"idx":43.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/event/Dispatcher.js","requires":[14.0,15.0,16.0,17.0,22.0,42.0,43.0],"uses":[9.0],"idx":44.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/class/Mixin.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0,2.0,3.0,9.0],"idx":45.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/mixin/Observable.js","requires":[0.0,1.0,23.0,44.0,45.0],"uses":[2.0,3.0],"idx":46.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Positionable.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0,48.0],"uses":[2.0,37.0,52.0],"idx":47.0},{"path":"../../ext-5.0.0-gpl/overrides/Positionable.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0,7.0],"idx":48.0},{"path":"../../common/src/bugfix/util/Positionable.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0],"idx":49.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/dom/Helper.js","requires":[14.0,15.0,16.0,17.0,22.0,51.0],"uses":[0.0,1.0,2.0,5.0,20.0,105.0],"idx":50.0},{"path":"../../ext-5.0.0-gpl/overrides/dom/Helper.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0],"idx":51.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/dom/Element.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,19.0,20.0,22.0,46.0,47.0,50.0,84.0],"uses":[2.0,3.0,5.0,18.0,37.0,53.0,54.0,85.0,238.0],"idx":52.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/dom/Fly.js","requires":[0.0,1.0,52.0],"uses":[2.0],"idx":53.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/dom/CompositeElementLite.js","requires":[14.0,15.0,16.0,17.0,22.0,53.0],"uses":[0.0,1.0,3.0,9.0,52.0],"idx":54.0},{"path":"../../ext-5.0.0-gpl/src/rtl/dom/Element.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0,54.0],"uses":[52.0],"idx":55.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Filter.js","requires":[14.0,15.0,16.0,17.0,22.0],"uses":[0.0,1.0,3.0,5.0],"idx":56.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/DelayedTask.js","requires":[0.0,1.0],"uses":[85.0],"idx":57.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Event.js","requires":[14.0,15.0,16.0,17.0,22.0,57.0],"uses":[0.0,1.0,2.0,3.0],"idx":58.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Observable.js","requires":[0.0,1.0,14.0,15.0,16.0,17.0,22.0,58.0],"uses":[2.0,3.0,4.0,7.0],"idx":59.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/AbstractMixedCollection.js","requires":[14.0,15.0,16.0,17.0,22.0,56.0,59.0],"uses":[0.0,1.0,3.0,5.0],"idx":60.0},{"path":"../../ext-5.0.0-gpl/packages/sencha-core/src/util/Sorter.js","requires":[14.0,
+env:
+  # You can have redis on a different box
+  RAILS_ENV: 'development'
+  UNICORN_WORKERS: 2
+  UNICORN_SIDEKIQS: 1
+  # slightly less aggressive than "recommendation" but works fine with oobgc
+  RUBY_GC_MALLOC_LIMIT: 40000000
+  # this ensures we have enough heap space to handle a big pile of small reqs
+  RUBY_HEAP_MIN_SLOTS: 800000
+
+  DISCOURSE_DB_SOCKET: /var/run/postgresql
+  DISCOURSE_DB_HOST:
+  DISCOURSE_DB_PORT:
+
+params:
+  # SSH key is required for remote access into the container
+  version: tests-passed
+
+  home: /shared/www/discourse
+  upload_size: 3m
+
+run:
+  - file:
+     path: /etc/runit/1.d/copy-env
+     chmod: "+x"
+     contents: |
+        #!/bin/bash
+        env > ~/boot_env
+        conf=/shared/www/discourse/config/discourse.conf
+
+        # find DISCOURSE_ env vars, strip the leader, lowercase the key
+        env | /usr/bin/awk -F= -vOFS== '$1 ~ /^DISCOURSE_/ {print substr(tolower($1),11),$2}' > $conf
+
+  - file:
+     path: /etc/service/unicorn/run
+     chmod: "+x"
+     contents: |
+        #!/bin/bash
+        exec 2>&1
+        # redis
+        # postgres
+        cd $home
+        exec sudo -E -u discourse LD_PRELOAD=/usr/lib/libjemalloc.so.1 bundle exec config/unicorn_launcher -E development -c config/unicorn.conf.rb
+
+  - file:
+     path: /etc/service/nginx/run
+     chmod: "+x"
+     contents: |
+        #!/bin/sh
+        exec 2>&1
+        mkdir -p /shared/log/nginx
+        exec /usr/sbin/nginx
+
+  - exec:
+      cmd:
+        - mkdir +p /shared/www
+        - cp -a /var/www/discourse /shared/www/discourse
+
+  - exec:
+      cd: $home
+      hook: code
+      cmd:
+        - git reset --hard
+        - git clean -f
+        - git remote set-branches --add origin master
+        - git pull
+        - git fetch origin $version
+        - git checkout $version
+        - mkdir -p tmp/pids
+        - mkdir -p tmp/sockets
+        - mkdir -p /shared/log/rails
+        - mkdir -p /shared/uploads
+        - mkdir -p /shared/backups
+        - touch tmp/.gitkeep
+        - rm -r log
+        - ln -s /shared/log/rails $home/log
+        - ln -s /shared/uploads $home/public/uploads
+        - ln -s /shared/backups $home/public/backups
+        - chown -R discourse:www-data /shared/log/rails
+        - chown -R discourse:www-data /shared/uploads
+        - chown -R discourse:www-data /shared/backups
+
+  - exec:
+      cmd:
+        - "cp $home/config/nginx.sample.conf /etc/nginx/conf.d/discourse.conf"
+        - "rm /etc/nginx/sites-enabled/default"
+        - "mkdir -p /var/nginx/cache"
+
+  - replace:
+      filename: /etc/nginx/nginx.conf
+      from: pid /run/nginx.pid;
+      to: daemon off;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /upstream[^\}]+\}/m
+      to: "upstream discourse {
+        server 127.0.0.1:3000;
+      }"
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /server_name.+$/
+      to: server_name _ ;
+
+  - replace:
+      filename: "/etc/nginx/conf.d/discourse.conf"
+      from: /client_max_body_size.+$/
+      to: client_max_body_size $upload_size ;
+
+  - exec:
+      cmd: echo "done configuring web"
+      hook: web_config
+
+  - exec:
+      cd: $home/config/environments
+      hook: web
+      cmd:
+        - rm -rf development.rb
+        - wget https://raw.githubusercontent.com/liverbool/discourse_docker/dev/development.rb
+
+  - exec:
+      cd: $home
+      hook: web
+      cmd:
+        # ensure we are on latest bundler
+        - gem update bundler
+        - rm -rf .bundle
+        - chown -R discourse $home
+        - sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
+        - sudo -E -u discourse bundle exec rake db:migrate
+
+  - file:
+     path: /usr/local/bin/discourse
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
+
+  - file:
+     path: /usr/local/bin/rails
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       # If they requested a console, load pry instead
+       if [ "$@" == "c" -o "$@" == "console" ]
+       then
+        (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
+       else
+        (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
+       fi
+
+  - file:
+     path: /usr/local/bin/rake
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
+
+  - file:
+     path: /etc/update-motd.d/10-web
+     chmod: +x
+     contents: |
+       #!/bin/bash
+       echo
+       echo Use: rails, rake or discourse to execute commands in production
+       echo
+

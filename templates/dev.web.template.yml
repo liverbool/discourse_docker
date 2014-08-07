@@ -17,7 +17,7 @@ params:
   # SSH key is required for remote access into the container
   version: tests-passed
 
-  home: /var/www/discourse
+  home: /shared/www/discourse
   upload_size: 3m
 
 run:
@@ -27,7 +27,7 @@ run:
      contents: |
         #!/bin/bash
         env > ~/boot_env
-        conf=/var/www/discourse/config/discourse.conf
+        conf=/shared/www/discourse/config/discourse.conf
 
         # find DISCOURSE_ env vars, strip the leader, lowercase the key
         env | /usr/bin/awk -F= -vOFS== '$1 ~ /^DISCOURSE_/ {print substr(tolower($1),11),$2}' > $conf
@@ -49,13 +49,8 @@ run:
      contents: |
         #!/bin/sh
         exec 2>&1
-        mkdir -p /var/log/nginx
+        mkdir -p /shared/log/nginx
         exec /usr/sbin/nginx
-
-  #- file:
-  #  path: /etc/timezone
-  #  contents: |
-  #    Asia/Bangkok
 
   - exec:
       cd: $home
@@ -128,15 +123,15 @@ run:
         - gem update bundler
         - rm -rf .bundle
         - chown -R discourse $home
-        - sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
-        - sudo -E -u discourse bundle exec rake db:migrate
+        #- sudo -E -u discourse bundle install --standalone #--deployment --verbose --without test --without development
+        #- sudo -E -u discourse bundle exec rake db:migrate
 
   - file:
      path: /usr/local/bin/discourse
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
+       (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
 
   - file:
      path: /usr/local/bin/rails
@@ -146,9 +141,9 @@ run:
        # If they requested a console, load pry instead
        if [ "$@" == "c" -o "$@" == "console" ]
        then
-        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
+        (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
        else
-        (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
+        (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
        fi
 
   - file:
@@ -156,7 +151,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /var/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
+       (cd /shared/www/discourse && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
 
   - file:
      path: /etc/update-motd.d/10-web

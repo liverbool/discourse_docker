@@ -54,7 +54,7 @@ run:
 
   - exec:
       cmd:
-        - mkdir + /shared/www
+        - mkdir +p /shared/www
         - cp -a /var/www/discourse /shared/www/discourse
 
   - exec:

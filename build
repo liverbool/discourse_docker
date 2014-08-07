@@ -1,5 +1,4 @@
 #!/bin/bash
-echo "debconf debconf/frontend select Teletype" | debconf-set-selections &&\
 apt-get -y install fping &&\
 sh -c "fping proxy && echo 'Acquire { Retries \"0\"; HTTP { Proxy \"http://proxy:3128\";}; };' > /etc/apt/apt.conf.d/40proxy || true" &&\
 apt-get -y update &&\
@@ -9,6 +8,14 @@ add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc)-upda
 apt-get -y update &&\
 apt-mark hold initscripts &&\
 apt-get -y upgrade &&\
+echo "export LANGUAGE=en_US.UTF-8" >> /etc/bash.bashrc &&\
+echo "export LANG=en_US.UTF-8" >> /etc/bash.bashrc &&\
+echo "export LC_ALL=en_US.UTF-8" >> /etc/bash.bashrc &&\
+export LANGUAGE=en_US.UTF-8 &&\
+export LANG=en_US.UTF-8 &&\
+export LC_ALL=en_US.UTF-8 &&\
+locale-gen en_US.UTF-8 &&\
+dpkg-reconfigure locales &&\
 add-apt-repository -y ppa:rwky/redis &&\
 add-apt-repository -y ppa:nginx/stable &&\
 apt-get install -y curl && curl http://apt.postgresql.org/pub/repos/apt/ACCC4CF8.asc | apt-key add - &&\
@@ -26,7 +33,17 @@ apt-get -y install build-essential git curl wget \
                    psmisc rsyslog &&\
 dpkg-divert --local --rename --add /sbin/initctl &&\
 sh -c "test -f /sbin/initctl || ln -s /bin/true /sbin/initctl" &&\
-apt-get -y install redis-server haproxy openssh-server &&\
+mkdir /tmp/redis_install &&\
+cd /tmp/redis_install &&\
+wget http://redis.googlecode.com/files/redis-2.6.7.tar.gz &&\
+tar xvf redis-2.6.7.tar.gz &&\
+cd redis-2.6.7 &&\
+make &&\
+make install &&\
+cd utils &&\
+./install_server.sh &&\
+rm -rf /tmp/redis_install &&\
+apt-get -y install haproxy openssh-server &&\
 echo 'gem: --no-document' >> /usr/local/etc/gemrc &&\
 mkdir /src && cd /src && git clone https://github.com/sstephenson/ruby-build.git &&\
 cd /src/ruby-build && ./install.sh &&\

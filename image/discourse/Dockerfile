@@ -5,16 +5,16 @@ MAINTAINER Sam Saffron "https://twitter.com/samsaffron"
 
 # Discourse specific bits
 RUN useradd discourse -s /bin/bash -m -U &&\
-    mkdir +p /shared/www && cd /shared/www &&\
+    mkdir /var/www && cd /var/www &&\
      git clone https://github.com/discourse/discourse.git &&\
      cd discourse &&\
      git remote set-branches --add origin tests-passed &&\
      cd .. &&\
-     chown -R discourse:discourse /shared/www/discourse &&\
-    cd /shared/www/discourse &&\
+     chown -R discourse:discourse /var/www/discourse &&\
+    cd /var/www/discourse &&\
      sudo -u discourse RAILS4=1 bundle install --deployment \
          --without test --without development &&\
-    cd /shared/www/discourse/vendor/bundle &&\
+    cd /var/www/discourse/vendor/bundle &&\
        find . -name tmp -type d | xargs rm -rf && cd / &&\
       wget https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.7-linux-x86_64.tar.bz2 &&\
       tar -xjf phantomjs-1.9.7-linux-x86_64.tar.bz2 &&\
@@ -26,7 +26,7 @@ RUN useradd discourse -s /bin/bash -m -U &&\
 #RUN apt-get -y autoremove build-essential gcc gcc-4.7 .+-dev
 #RUN echo image size: $(du -hsx /)
 
-# RUN cd /shared/www/discourse && bundle exec rake db:test:prepare && bundle exec rspec
+# RUN cd /var/www/discourse && bundle exec rake db:test:prepare && bundle exec rspec
 
 # mkdir -p /src/godeb && cd /src/godeb && curl -O https://godeb.s3.amazonaws.com/godeb-amd64.tar.gz &&\
 # cd /src/godeb && tar -xzvf godeb-amd64.tar.gz &&\

@@ -54,7 +54,7 @@ run:
 
   - file:
     path: /etc/timezone
-    chmod: +x # TODO: change this
+    chmod: "+x" # TODO: change this
     contents: |
       Asia/Bangkok
 

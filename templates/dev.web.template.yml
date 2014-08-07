@@ -71,7 +71,7 @@ run:
         - mkdir -p tmp/sockets
         - touch tmp/.gitkeep
         - rm -r log
-        - ln -s /shared/discourse
+        - ln -s /var/www/discourse/ /shared/discourse
 
   - exec:
       cmd:

@@ -53,6 +53,11 @@ run:
         exec /usr/sbin/nginx
 
   - exec:
+      cmd:
+        - mkdir + /shared/www
+        - cp -a /var/www/discourse /shared/www/discourse
+
+  - exec:
       cd: $home
       hook: code
       cmd:

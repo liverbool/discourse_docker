@@ -17,7 +17,7 @@ params:
   # SSH key is required for remote access into the container
   version: tests-passed
 
-  home: /shared
+  home: /shared/www
   upload_size: 3m
 
 run:
@@ -27,7 +27,7 @@ run:
      contents: |
         #!/bin/bash
         env > ~/boot_env
-        conf=/shared/config/discourse.conf
+        conf=/shared/www/config/discourse.conf
 
         # find DISCOURSE_ env vars, strip the leader, lowercase the key
         env | /usr/bin/awk -F= -vOFS== '$1 ~ /^DISCOURSE_/ {print substr(tolower($1),11),$2}' > $conf
@@ -128,7 +128,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /shared && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
+       (cd /shared/www && RAILS_ENV=development sudo -E -u discourse bundle exec script/discourse "$@")
 
   - file:
      path: /usr/local/bin/rails
@@ -138,9 +138,9 @@ run:
        # If they requested a console, load pry instead
        if [ "$@" == "c" -o "$@" == "console" ]
        then
-        (cd /shared && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
+        (cd /shared/www && RAILS_ENV=development sudo -E -u discourse bundle exec pry -r ./config/environment)
        else
-        (cd /shared && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
+        (cd /shared/www && RAILS_ENV=development sudo -E -u discourse bundle exec script/rails "$@")
        fi
 
   - file:
@@ -148,7 +148,7 @@ run:
      chmod: +x
      contents: |
        #!/bin/bash
-       (cd /shared && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
+       (cd /shared/www && RAILS_ENV=development sudo -E -u discourse bundle exec bin/rake "$@")
 
   - file:
      path: /etc/update-motd.d/10-web

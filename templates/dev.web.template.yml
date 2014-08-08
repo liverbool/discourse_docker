@@ -53,7 +53,8 @@ run:
 
   - exec:
       cmd:
-        - mkdir +p /shared/www
+        - rm -rf /shared/www
+        - mkdir /shared/www
         - cp -a /var/www/discourse /shared/www/discourse
 
   - exec:
